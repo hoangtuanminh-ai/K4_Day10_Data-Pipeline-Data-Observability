@@ -9,7 +9,7 @@ from core.config import load_settings, require_llm_credentials
 from core.utils import read_json
 from ingestion.corruption import corrupt_clean_dataframe
 from ingestion.crossref import load_raw_records
-from ingestion.cleaning import build_clean_dataframe
+from ingestion.cleaning import build_clean_dataframe, repair_corrupted_dataframe
 from retrieval.index import LocalEmbeddingIndex
 from evaluation.metrics import evaluate_pipeline
 from observability.quality import run_data_quality_checks, build_freshness_report
@@ -34,7 +34,7 @@ def main() -> None:
        - Gọi Role 4 (Vector Store) để index collection mới (papers-corrupted)
        - Gọi Role 5 (Evaluation & Observability) để re-evaluate dữ liệu lỗi
     2. Giai đoạn B (Repair Flow):
-       - Gọi Role 2 & 3 (Repair) nạp lại raw json snapshot để rebuild clean dataset (papers_clean_repaired.csv)
+       - Gọi Role 2 & 3 (Repair) sử dụng hàm repair_corrupted_dataframe để sửa lỗi trực tiếp từ df_corrupted
        - Gọi Role 4 (Vector Store) để index collection mới (papers-repaired)
        - Gọi Role 5 (Evaluation & Observability) để re-evaluate dữ liệu phục hồi
     3. Giai đoạn C (Comparison Reporting):
@@ -108,25 +108,25 @@ def main() -> None:
         hit_drop = baseline_metrics.get("retrieval_hit_rate", 0) - corrupted_metrics.get("retrieval_hit_rate", 0)
         f1_drop = baseline_metrics.get("mean_token_f1", 0) - corrupted_metrics.get("mean_token_f1", 0)
         print(f"    [CONSOLE TEST - IMPACT CORRUPTION RESULTS]:")
-        print(f"      - Baseline Hit Rate  : {baseline_metrics.get('retrieval_hit_rate', 0):.4f}  ---> Corrupted Hit Rate : {corrupted_metrics.get('retrieval_hit_rate', 0):.4f} (Giảm: {hit_drop:.4f})")
-        print(f"      - Baseline Token F1  : {baseline_metrics.get('mean_token_f1', 0):.4f}  ---> Corrupted Token F1 : {corrupted_metrics.get('mean_token_f1', 0):.4f} (Giảm: {f1_drop:.4f})")
-        print(f"      - Quality Gate Status: '{corrupted_quality.get('status')}'")
+        print(f"      - Baseline Hit Rate : {baseline_metrics.get('retrieval_hit_rate', 0):.4f}  ---> Corrupted Hit Rate : {corrupted_metrics.get('retrieval_hit_rate', 0):.4f} (Suy giảm: -{hit_drop:.4f})")
+        print(f"      - Baseline Token F1 : {baseline_metrics.get('mean_token_f1', 0):.4f}  ---> Corrupted Token F1 : {corrupted_metrics.get('mean_token_f1', 0):.4f} (Suy giảm: -{f1_drop:.4f})")
+        print(f"      - Corrupted Quality Status: '{corrupted_quality.get('status')}'")
     except Exception as e:
         print(f"    [TEST LỖI - ROLE 5] Lỗi khi đánh giá Corrupted Pipeline: {e}")
         return
 
     # ------------------------------------------------------------------
-    # GIAI ĐOẠN B: REPAIR FLOW (PHỤC HỒI DỮ LIỆU TỪ RAW SOURCE & ĐÁNH GIÁ LẠI)
+    # GIAI ĐOẠN B: REPAIR FLOW (THUẬT TOÁN ACTIVE DATA REPAIR TỪ DATA LỖI)
     # ------------------------------------------------------------------
-    print("\n--> [BƯỚC 5/8] [GIAI ĐOẠN B] Gọi Module Ingestion & Cleaning (Role 2 & 3) để Repair từ Raw Source...")
+    print("\n--> [BƯỚC 5/8] [GIAI ĐOẠN B] Gọi Module Ingestion & Cleaning (Role 2 & 3) để Repair trực tiếp từ Corrupted Data...")
     try:
         raw_records = load_raw_records(settings.paths.raw_records_json)
-        df_repaired = build_clean_dataframe(raw_records, datetime.now(UTC))
+        df_repaired = repair_corrupted_dataframe(df_corrupted, raw_records, datetime.now(UTC))
         df_repaired.to_csv(settings.paths.repaired_clean_csv, index=False)
         df_repaired.to_json(settings.paths.repaired_clean_json, orient="records", indent=2)
-        print(f"    [CONSOLE TEST - REPAIR CHECK] Phục hồi xong {len(df_repaired)} hàng từ Raw JSON. Saved to '{settings.paths.repaired_clean_csv}'.")
+        print(f"    [CONSOLE TEST - REPAIR CHECK] Phục hồi xong {len(df_repaired)} hàng trực tiếp từ Corrupted Data. Saved to '{settings.paths.repaired_clean_csv}'.")
     except Exception as e:
-        print(f"    [TEST LỖI - ROLE 2/3] Lỗi trong quá trình Repair Data từ Raw Source: {e}")
+        print(f"    [TEST LỖI - ROLE 2/3] Lỗi trong quá trình Repair Data: {e}")
         return
 
     print("\n--> [BƯỚC 6/8] [GIAI ĐOẠN B] Gọi Vector Store (Role 4) để Index Collection 'papers-repaired'...")

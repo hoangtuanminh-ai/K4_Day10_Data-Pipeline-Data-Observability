@@ -6,7 +6,7 @@
 | :--- | :---: | :---: | :---: | :---: |
 | **Hit Rate** | 1.0000 | 0.6000 | 1.0000 | +0.4000 |
 | **Token F1** | 0.0986 | 0.0236 | 0.0986 | +0.0750 |
-| **Judge Score** | 2.7000 | 2.3333 | 2.7000 | +0.3667 |
+| **Judge Score** | 2.7000 | 2.3333 | 2.6667 | +0.3333 |
 
 ## 2. Quality & Freshness Signals
 - **Corrupted Quality Status**: `FAILED` (Duplicates: 2, Empty Summaries: 5)

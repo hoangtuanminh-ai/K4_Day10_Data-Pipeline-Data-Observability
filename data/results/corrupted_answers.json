@@ -106,7 +106,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not address the main contributions of the paper on Deep RAG, focusing instead on limitations of LLMs in biomedical contexts. It fails to summarize the key components, methodologies, and objectives outlined in the reference answer."
+      "reasoning": "The model answer does not address the main contributions of the paper on Deep RAG, focusing instead on the limitations of LLMs in biomedical question-answering. It fails to summarize the key aspects of Deep RAG, such as its integration of reasoning, memory, and planning, and does not mention the structured overview or the challenges identified in the survey."
     }
   },
   {
@@ -135,7 +135,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the complete list of authors, only mentioning one author, Lihui Liu, which is insufficient and incorrect."
+      "reasoning": "The model answer does not provide the correct authorship information, as it only mentions one author, while the reference answer states 'The authors are Lihui Liu', which is incomplete if there are multiple authors."
     }
   },
   {
@@ -338,7 +338,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer provides a date (2026-07-06) that is incorrect compared to the reference answer (2026-04-07). The model answer is materially incorrect."
+      "reasoning": "The model answer provides an incorrect publication date, which is materially different from the reference answer."
     }
   },
   {
@@ -367,7 +367,7 @@
     "judge": {
       "score": 4,
       "correct": true,
-      "reasoning": "The model answer accurately summarizes the main contributions of the paper, highlighting the focus on improving inference latency and computation costs in Retrieval-Augmented Generation (RAG). It mentions the hybrid retrieval mechanism and the speculative decoding approach, as well as the empirical results demonstrating improvements in latency and token reduction. However, it could be more concise and structured."
+      "reasoning": "The model answer accurately summarizes the main contributions of the paper, highlighting the focus on improving inference latency and computation costs in Retrieval-Augmented Generation (RAG). It mentions the hybrid retrieval approach, the use of speculative decoding, and the empirical results demonstrating improvements in latency and token reduction while maintaining accuracy. However, it could be more concise and structured."
     }
   },
   {
@@ -396,7 +396,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer is completely corrupted and does not provide any relevant information about the authors of the paper. It fails to mention Dr. Sumalatha P and Manoj Kumar, making it incorrect."
+      "reasoning": "The model answer is completely corrupted and does not provide any relevant information about the authors of the paper, making it incorrect."
     }
   },
   {
@@ -425,7 +425,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer provides a date that is incorrect; the reference answer states the paper was published on 2026-05-06, while the model answer states 2026-07-06, which is a different date."
+      "reasoning": "The model answer provides an incorrect publication date, which is materially different from the reference answer."
     }
   },
   {
@@ -483,7 +483,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer is completely corrupted and does not provide any relevant information about the authors of the paper. It fails to mention Hyewon Lee and Sungsu Lim, making it incorrect."
+      "reasoning": "The model answer is completely corrupted and does not provide any relevant information about the authors of the paper, making it incorrect."
     }
   },
   {
@@ -541,7 +541,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer only provides the initial context about the demand for CDSS but fails to summarize the main contributions and innovations of the paper, such as the introduction of ECRAG-LLM, its features, and the results of the experiments."
+      "reasoning": "The model answer only provides the initial context about the demand for Clinical Decision Support Systems (CDSS) but fails to summarize the main contributions and innovations of the paper, such as the introduction of ECRAG-LLM, its features, and the results of the experiments."
     }
   },
   {
@@ -657,7 +657,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer is completely corrupted and does not provide any relevant information about the authors of the paper. It fails to mention Nawari O. Nawari and Oluwatoyin O. Lawal, making it incorrect."
+      "reasoning": "The model answer does not provide any relevant information and is instead filled with error messages, making it completely incorrect."
     }
   },
   {
@@ -686,7 +686,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer provides a date that is incorrect compared to the reference answer, which states the publication date as 2026-07-02."
+      "reasoning": "The model answer provides a date that is incorrect compared to the reference answer, which states the publication date is 2026-07-02."
     }
   },
   {
@@ -802,7 +802,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only provides the introductory context of the paper without summarizing the main contributions or the integrated governance architecture proposed in the reference answer. It lacks details on the methodologies, frameworks, and specific contributions outlined in the reference."
+      "reasoning": "The model answer only provides a partial summary of the paper, repeating the first sentence of the reference answer without addressing the main contributions, methodologies, or the integrated governance architecture discussed in the paper. It lacks critical details that define the paper's significance and findings."
     }
   },
   {
@@ -831,7 +831,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the topic of the paper without addressing the authors."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the implications of AI adoption without addressing the authorship of the paper."
     }
   },
   {

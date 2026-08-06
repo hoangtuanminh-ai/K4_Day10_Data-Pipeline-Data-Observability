@@ -26,15 +26,19 @@ _SHARED_CLIENT: Any | None = None
 
 def _get_chroma_client(persist_path: Path) -> Any:
     global _SHARED_CLIENT
-    if _SHARED_CLIENT is None:
-        try:
+    try:
+        if _SHARED_CLIENT is None:
             _SHARED_CLIENT = chromadb.PersistentClient(path=str(persist_path))
-        except BaseException:
-            import shutil
-            shutil.rmtree(persist_path, ignore_errors=True)
-            persist_path.mkdir(parents=True, exist_ok=True)
-            _SHARED_CLIENT = chromadb.PersistentClient(path=str(persist_path))
-    return _SHARED_CLIENT
+        _SHARED_CLIENT.heartbeat()
+        return _SHARED_CLIENT
+    except BaseException:
+        _SHARED_CLIENT = None
+        import shutil
+        shutil.rmtree(persist_path, ignore_errors=True)
+        persist_path.mkdir(parents=True, exist_ok=True)
+        _SHARED_CLIENT = chromadb.PersistentClient(path=str(persist_path))
+        return _SHARED_CLIENT
+
 
 
 class LocalEmbeddingIndex:

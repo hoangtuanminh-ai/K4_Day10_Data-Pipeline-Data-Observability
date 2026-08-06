@@ -5,34 +5,86 @@ from typing import Any
 import pandas as pd
 
 from core.config import Settings
+from core.utils import write_json
 
 
 def run_data_quality_checks(df: pd.DataFrame, settings: Settings, report_name: str) -> dict[str, Any]:
-    """TODO(student): tao bo data quality checks.
+    """Run auditable completeness, uniqueness, validity, and freshness checks."""
+    required_columns = {"paper_id", "title", "summary", "age_days"}
+    missing_columns = sorted(required_columns - set(df.columns))
+    if missing_columns:
+        raise ValueError(f"Cannot run quality checks; missing columns: {', '.join(missing_columns)}")
 
-    Pseudo-code:
-    1. Check row count.
-    2. Check `paper_id` not null va unique.
-    3. Check `title` not null.
-    4. Check do dai `summary`.
-    5. Check freshness bang `age_days`.
-    6. Ghi ket qua vao `data/quality/`.
-    """
-    raise NotImplementedError("Student task: implement quality checks.")
+    total_rows = len(df)
+    paper_ids = df["paper_id"].fillna("").astype(str).str.strip()
+    titles = df["title"].fillna("").astype(str).str.strip()
+    summaries = df["summary"].fillna("").astype(str).str.strip()
+    age_days = pd.to_numeric(df["age_days"], errors="coerce")
+
+    checks = {
+        "row_count": {"passed": total_rows > 0, "actual": total_rows, "expected": "> 0"},
+        "paper_id_not_null": {
+            "passed": int(paper_ids.eq("").sum()) == 0,
+            "invalid_rows": int(paper_ids.eq("").sum()),
+        },
+        "paper_id_unique": {
+            "passed": int(paper_ids.duplicated(keep=False).sum()) == 0,
+            "duplicate_rows": int(paper_ids.duplicated(keep=False).sum()),
+        },
+        "title_not_blank": {
+            "passed": int(titles.eq("").sum()) == 0,
+            "invalid_rows": int(titles.eq("").sum()),
+        },
+        "summary_min_length": {
+            "passed": int(summaries.str.len().lt(20).sum()) == 0,
+            "invalid_rows": int(summaries.str.len().lt(20).sum()),
+            "minimum_characters": 20,
+        },
+        "age_days_valid": {
+            "passed": int(age_days.isna().sum() + age_days.lt(0).sum()) == 0,
+            "invalid_rows": int(age_days.isna().sum() + age_days.lt(0).sum()),
+        },
+        "freshness": {
+            "passed": int(age_days.gt(settings.freshness_threshold_days).sum()) == 0,
+            "stale_rows": int(age_days.gt(settings.freshness_threshold_days).sum()),
+            "threshold_days": settings.freshness_threshold_days,
+        },
+    }
+    report = {
+        "report_name": report_name,
+        "status": "PASSED" if all(check["passed"] for check in checks.values()) else "FAILED",
+        "total_rows": total_rows,
+        "null_paper_ids": int(paper_ids.eq("").sum()),
+        "duplicate_paper_ids": int(paper_ids.duplicated(keep=False).sum()),
+        "blank_titles": int(titles.eq("").sum()),
+        "short_or_empty_summaries": int(summaries.str.len().lt(20).sum()),
+        "stale_rows": int(age_days.gt(settings.freshness_threshold_days).sum()),
+        "checks": checks,
+    }
+    write_json(settings.paths.quality_dir / f"{report_name}.json", report)
+    return report
 
 
 def build_freshness_report(df: pd.DataFrame, settings: Settings, report_path) -> dict[str, Any]:
-    """TODO(student): tong hop freshness report.
+    """Summarise publication-date freshness and persist the evidence."""
+    required_columns = {"published", "age_days"}
+    missing_columns = sorted(required_columns - set(df.columns))
+    if missing_columns:
+        raise ValueError(f"Cannot build freshness report; missing columns: {', '.join(missing_columns)}")
 
-    Pseudo-code:
-    1. Tim latest va oldest published date.
-    2. Dem so dong stale.
-    3. Tao payload:
-       - latest_published
-       - oldest_published
-       - stale_rows
-       - total_rows
-       - is_fresh
-    4. Ghi JSON report.
-    """
-    raise NotImplementedError("Student task: implement freshness reporting.")
+    published = pd.to_datetime(df["published"], errors="coerce", utc=True)
+    age_days = pd.to_numeric(df["age_days"], errors="coerce")
+    valid_dates = published.dropna()
+    stale_rows = int(age_days.gt(settings.freshness_threshold_days).sum())
+    report = {
+        "total_rows": len(df),
+        "valid_published_dates": int(valid_dates.size),
+        "invalid_published_dates": int(published.isna().sum()),
+        "latest_published": valid_dates.max().date().isoformat() if not valid_dates.empty else None,
+        "oldest_published": valid_dates.min().date().isoformat() if not valid_dates.empty else None,
+        "stale_rows": stale_rows,
+        "freshness_threshold_days": settings.freshness_threshold_days,
+        "is_fresh": bool(len(df) > 0 and valid_dates.size == len(df) and stale_rows == 0),
+    }
+    write_json(report_path, report)
+    return report

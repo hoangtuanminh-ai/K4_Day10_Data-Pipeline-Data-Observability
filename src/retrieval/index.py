@@ -42,6 +42,24 @@ class LocalEmbeddingIndex:
 
     @staticmethod
     def _build_documents(df: pd.DataFrame) -> list[dict[str, Any]]:
+        required_columns = {
+            "paper_id",
+            "title",
+            "text_for_embedding",
+            "published",
+            "authors_joined",
+            "categories_joined",
+            "summary",
+            "abs_url",
+            "pdf_url",
+        }
+        missing_columns = required_columns - set(df.columns)
+        if missing_columns:
+            raise ValueError(
+                "Dataset is missing columns required for vector indexing: "
+                f"{sorted(missing_columns)}"
+            )
+
         records = df.to_dict(orient="records")
         documents: list[dict[str, Any]] = []
         for index, row in enumerate(records):
@@ -87,6 +105,9 @@ class LocalEmbeddingIndex:
         settings: Settings,
         embeddings_output_path: Path | None = None,
     ) -> "LocalEmbeddingIndex":
+        if df.empty:
+            raise ValueError("Cannot build a vector index from an empty dataset.")
+
         collection_name = cls._derive_collection_name(settings, embeddings_output_path)
         documents = cls._build_documents(df)
         persist_path = settings.paths.chroma_dir

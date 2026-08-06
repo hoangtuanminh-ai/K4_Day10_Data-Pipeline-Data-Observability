@@ -137,11 +137,14 @@ def load_settings(project_dir: Path | None = None) -> Settings:
 
 def normalized_provider(settings: Settings) -> str:
     provider = settings.llm_provider.strip().lower().replace(" ", "").replace("-", "")
+    if provider in {"gpt", "chatgpt", "openai"}:
+        return "openai"
     if provider == "anthorpic":
         return "anthropic"
     if provider == "customllm":
         return "custom"
     return provider
+
 
 
 def require_llm_credentials(settings: Settings) -> None:

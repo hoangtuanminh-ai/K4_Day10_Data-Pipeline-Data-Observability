@@ -1,0 +1,9 @@
+{
+  "report_name": "corrupted_quality",
+  "status": "FAILED",
+  "total_rows": 22,
+  "null_paper_ids": 0,
+  "duplicate_paper_ids": 1,
+  "empty_summaries": 2,
+  "stale_rows": 2
+}

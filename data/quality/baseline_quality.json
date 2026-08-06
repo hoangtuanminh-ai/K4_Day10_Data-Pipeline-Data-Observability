@@ -1,0 +1,9 @@
+{
+  "report_name": "baseline_quality",
+  "status": "PASSED",
+  "total_rows": 24,
+  "null_paper_ids": 0,
+  "duplicate_paper_ids": 0,
+  "empty_summaries": 0,
+  "stale_rows": 1
+}

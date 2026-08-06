@@ -7,7 +7,6 @@ import sys
 import types
 from typing import Any
 
-from datasets import Dataset
 from pydantic import BaseModel, Field
 
 from core.config import Settings
@@ -119,6 +118,7 @@ def evaluate_pipeline(
         write_json(out_answers_path, answers)
     return bundle
 
+def _token_f1(reference: str, prediction: str) -> float:
     ref_tokens = normalize_whitespace(reference).lower().split()
     pred_tokens = normalize_whitespace(prediction).lower().split()
     if not ref_tokens or not pred_tokens:
@@ -131,6 +131,7 @@ def evaluate_pipeline(
     precision = overlap / len(pred_set)
     recall = overlap / len(ref_set)
     return 2 * precision * recall / (precision + recall)
+
 
 
 def _judge_answer(settings: Settings, question: str, reference: str, prediction: str) -> JudgeVerdict:
@@ -166,8 +167,10 @@ def _run_ragas(settings: Settings, answers: list[dict[str, Any]]) -> dict[str, A
             shim = types.ModuleType("langchain_community.chat_models.vertexai")
             shim.ChatVertexAI = type("ChatVertexAI", (), {})
             sys.modules["langchain_community.chat_models.vertexai"] = shim
+        from datasets import Dataset
         from ragas import evaluate
         from ragas.metrics import answer_relevancy, context_precision, context_recall, faithfulness
+
 
         dataset = Dataset.from_dict(
             {

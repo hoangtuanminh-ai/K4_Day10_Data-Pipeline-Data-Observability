@@ -1,15 +1,27 @@
 [
   {
-    "type": "drop_latest_records",
-    "details": "Dropped IDs: ['crossref_10-32473-flairs-39-1-141782', 'crossref_10-21203-rs-3-rs-9770645-v1', 'crossref_10-1111-exsy-70341']"
+    "type": "drop_key_testset_records",
+    "details": "Dropped IDs: ['crossref_10-36227-techrxiv-177272838-89432844-v1', 'crossref_10-55041-isjem07213', 'crossref_10-3390-buildings16132637']"
   },
   {
     "type": "blank_summary",
     "paper_id": "crossref_10-47576-2949-1894-2026-7-7-023"
   },
   {
+    "type": "blank_summary",
+    "paper_id": "crossref_10-20944-preprints202604-0339-v1"
+  },
+  {
+    "type": "blank_summary",
+    "paper_id": "crossref_10-2196-preprints-106157"
+  },
+  {
     "type": "inject_noise",
     "paper_id": "crossref_10-63646-kpqm1958"
+  },
+  {
+    "type": "inject_noise",
+    "paper_id": "crossref_10-3390-app16052244"
   },
   {
     "type": "truncate_title",
@@ -17,10 +29,13 @@
   },
   {
     "type": "stale_date",
-    "paper_id": "crossref_10-55041-isjem07213"
+    "paper_id": "crossref_10-3390-app16052244"
   },
   {
-    "type": "add_duplicate",
-    "paper_id": "crossref_10-47576-2949-1894-2026-7-7-023"
+    "type": "add_duplicates",
+    "paper_ids": [
+      "crossref_10-47576-2949-1894-2026-7-7-023",
+      "crossref_10-20944-preprints202604-0339-v1"
+    ]
   }
 ]

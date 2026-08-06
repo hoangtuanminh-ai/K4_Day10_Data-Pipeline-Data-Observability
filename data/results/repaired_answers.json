@@ -141,7 +141,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. It instead discusses the concept of Retrieval-Augmented Generation, which is unrelated to identifying the authors of the paper."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. It instead discusses the concept of Retrieval-Augmented Generation, which is unrelated to identifying the authors."
     }
   },
   {
@@ -286,7 +286,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer provides only a very brief summary of the study's focus on retrieval-augmented mechanisms in large language model agents. It lacks critical details about the methodology, contributions, and results that are essential for a comprehensive understanding of the paper's significance, as outlined in the reference answer."
+      "reasoning": "The model answer provides only a very brief summary of the paper's focus on retrieval-augmented mechanisms but fails to capture the detailed contributions, methodology, and results outlined in the reference answer. It lacks critical information about the framework, processes involved, and the effectiveness of the approach."
     }
   },
   {
@@ -373,7 +373,7 @@
     "judge": {
       "score": 3,
       "correct": false,
-      "reasoning": "The model answer captures the main focus of the paper on high inference latency and computation cost but lacks detail on the proposed methods (hybrid retrieval, speculative decoding) and empirical results that are crucial to understanding the contributions of the work."
+      "reasoning": "The model answer captures the main focus of the paper on high inference latency and computation cost but fails to mention the specific contributions of the proposed speculative RAG framework, the hybrid retrieval methods, and the empirical results that demonstrate improvements in latency and token reduction. It lacks detail on the mechanisms and outcomes that are critical to understanding the paper's contributions."
     }
   },
   {
@@ -460,7 +460,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only partially summarizes the reference answer, focusing on the limitations of existing GraphRAG methods but failing to mention the proposed solution (HybRAG), its contributions, or the empirical results that demonstrate its effectiveness. It lacks key details about the integration of semantic and structural retrieval and the significance of the findings."
+      "reasoning": "The model answer captures the initial problem with existing GraphRAG methods but fails to address the proposed solution (HybRAG) and its contributions, such as the integration of semantic and structural retrieval, the construction of a hybrid subgraph, and the results from experiments. It lacks depth and completeness."
     }
   },
   {
@@ -489,7 +489,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses GraphRAG methods, which is irrelevant to the question about authorship."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses GraphRAG methods, which is irrelevant to the question about the authors of the paper."
     }
   },
   {
@@ -634,7 +634,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only provides a very brief introduction to the problem faced by designers, engineers, and building officials, without addressing the main contributions of the paper, such as the proposed AI framework, its architecture, methods used, and evaluation results. It lacks detail and does not summarize the key findings or implications of the research."
+      "reasoning": "The model answer only provides a very brief introduction and does not capture the main contributions or details of the proposed AI framework, its evaluation, or the specific challenges addressed in the reference answer."
     }
   },
   {
@@ -663,7 +663,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the challenges faced by designers and engineers, which is irrelevant to the question."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the challenges faced by designers, engineers, and building officials, which is irrelevant to the question."
     }
   },
   {
@@ -721,7 +721,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only provides a partial background and does not address the main contributions, objectives, methods, results, or conclusions of the paper. It lacks critical details that are essential for a comprehensive summary."
+      "reasoning": "The model answer only provides a partial background without addressing the main contributions, objectives, methods, results, and conclusions of the paper. It lacks critical details that are essential for a comprehensive summary."
     }
   },
   {
@@ -750,7 +750,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the background of the topic, which is irrelevant to the specific question about authorship."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the background of the topic, which is irrelevant to the question."
     }
   },
   {
@@ -808,7 +808,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only provides the introductory context of the paper without summarizing the main contributions or the integrated governance architecture proposed in the reference answer. It lacks details on the methodologies, frameworks, and specific contributions outlined in the reference."
+      "reasoning": "The model answer only provides a partial summary of the paper, repeating the first sentence of the reference answer without addressing the main contributions, methodologies, or the integrated governance architecture discussed in the paper. It lacks detail and does not capture the essence of the proposed architecture or its components."
     }
   },
   {

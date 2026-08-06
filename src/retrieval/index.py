@@ -21,6 +21,22 @@ class SearchResult:
     metadata: dict[str, Any]
 
 
+_SHARED_CLIENT: Any | None = None
+
+
+def _get_chroma_client(persist_path: Path) -> Any:
+    global _SHARED_CLIENT
+    if _SHARED_CLIENT is None:
+        try:
+            _SHARED_CLIENT = chromadb.PersistentClient(path=str(persist_path))
+        except BaseException:
+            import shutil
+            shutil.rmtree(persist_path, ignore_errors=True)
+            persist_path.mkdir(parents=True, exist_ok=True)
+            _SHARED_CLIENT = chromadb.PersistentClient(path=str(persist_path))
+    return _SHARED_CLIENT
+
+
 class LocalEmbeddingIndex:
     def __init__(
         self,
@@ -35,7 +51,7 @@ class LocalEmbeddingIndex:
         self.persist_path = persist_path
         self.embedding_backend = "chroma"
         self.embedding_model = MiniLMEmbeddings(settings.embedding_model)
-        self.client = chromadb.PersistentClient(path=str(persist_path))
+        self.client = _get_chroma_client(persist_path)
         self.collection = self.client.get_collection(name=collection_name)
         self.documents_by_paper_id = {document["paper_id"].lower(): document for document in documents}
         self.documents_by_title = {document["title"].lower(): document for document in documents}
@@ -93,21 +109,13 @@ class LocalEmbeddingIndex:
         persist_path.mkdir(parents=True, exist_ok=True)
 
         embedding_model = MiniLMEmbeddings(settings.embedding_model)
-        try:
-            client = chromadb.PersistentClient(path=str(persist_path))
-        except BaseException:
-            import shutil
-            shutil.rmtree(persist_path, ignore_errors=True)
-            persist_path.mkdir(parents=True, exist_ok=True)
-            client = chromadb.PersistentClient(path=str(persist_path))
-
-
-
+        client = _get_chroma_client(persist_path)
 
         try:
             client.delete_collection(name=collection_name)
         except Exception:
             pass
+
 
         collection = client.create_collection(
             name=collection_name,

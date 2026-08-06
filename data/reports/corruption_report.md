@@ -4,12 +4,12 @@
 
 | Metric | Baseline | Corrupted | Repaired | Delta (Repaired - Corrupted) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Hit Rate** | 1.0000 | 1.0000 | 1.0000 | +0.0000 |
-| **Token F1** | 0.0986 | 0.0879 | 0.0986 | +0.0108 |
-| **Judge Score** | 2.7000 | 2.7667 | 2.7000 | +-0.0667 |
+| **Hit Rate** | 1.0000 | 0.6000 | 1.0000 | +0.4000 |
+| **Token F1** | 0.0986 | 0.0236 | 0.0986 | +0.0750 |
+| **Judge Score** | 2.7000 | 2.3333 | 2.7000 | +0.3667 |
 
 ## 2. Quality & Freshness Signals
-- **Corrupted Quality Status**: `FAILED` (Duplicates: 1, Empty Summaries: 2)
+- **Corrupted Quality Status**: `FAILED` (Duplicates: 2, Empty Summaries: 5)
 - **Repaired Quality Status**: `PASSED` (Duplicates: 0, Empty Summaries: 0)
 
 ## 3. Key Conclusions

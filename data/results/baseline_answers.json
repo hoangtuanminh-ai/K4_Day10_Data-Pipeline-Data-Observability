@@ -25,7 +25,7 @@
     "judge": {
       "score": 3,
       "correct": false,
-      "reasoning": "The model answer provides a partial summary of the paper, mentioning the investigation of risk reduction in the use of LLM in the dairy industry. However, it lacks details about the specific risks, scenarios of application, and the transformative impact of integrating RAG with LLM, which are crucial elements highlighted in the reference answer."
+      "reasoning": "The model answer provides a partial summary of the paper, mentioning the investigation of risk reduction in the use of LLM in the dairy industry. However, it lacks details about the specific scenarios, processes, data involved, and the transformation of LLM into a reliable decision support mechanism, which are crucial elements of the reference answer."
     }
   },
   {
@@ -286,7 +286,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer provides only a very basic summary of the paper's focus on retrieval-augmented mechanisms in large language model agents. It lacks detail on the methodology, contributions, and results discussed in the reference answer, which are crucial for a comprehensive understanding of the study's significance."
+      "reasoning": "The model answer provides only a very brief summary of the paper's focus on retrieval-augmented mechanisms in large language model agents. It lacks critical details about the methodology, contributions, and results that are essential for a comprehensive understanding of the study, as presented in the reference answer."
     }
   },
   {
@@ -315,7 +315,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it describes the study's focus without addressing the specific authors."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. It instead describes the study's focus, which is irrelevant to the question asked."
     }
   },
   {
@@ -373,7 +373,7 @@
     "judge": {
       "score": 3,
       "correct": false,
-      "reasoning": "The model answer captures the main focus of the paper on high inference latency and computation cost but lacks detail on the proposed speculative RAG framework, the hybrid retrieval methods, and the empirical results that demonstrate improvements. It does not provide a comprehensive summary of the contributions made in the paper."
+      "reasoning": "The model answer captures the main focus of the paper on high inference latency and computation cost but lacks detail on the proposed speculative RAG framework, the hybrid retrieval methods, and the empirical results. It does not provide a comprehensive summary of the contributions, making it incomplete."
     }
   },
   {
@@ -489,7 +489,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses GraphRAG methods, which is irrelevant to the question about authorship."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses GraphRAG methods, which is irrelevant to the question about the authors of the paper."
     }
   },
   {
@@ -547,7 +547,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer only provides the initial context about the demand for Clinical Decision Support Systems (CDSS) but fails to summarize the main contributions and innovations of the paper, such as the introduction of ECRAG-LLM, its multi-stage instruction tuning, and the results of the experiments. It lacks detail and does not capture the essence of the paper."
+      "reasoning": "The model answer only provides the initial context about the demand for Clinical Decision Support Systems (CDSS) but fails to summarize the main contributions and innovations of the paper, such as the introduction of ECRAG-LLM, its multi-stage instruction tuning, and the improvements in diagnostic accuracy and treatment appropriateness. It lacks detail and does not capture the essence of the paper."
     }
   },
   {
@@ -634,7 +634,7 @@
     "judge": {
       "score": 2,
       "correct": false,
-      "reasoning": "The model answer only provides a very brief introduction to the problem faced by designers, engineers, and building officials, without addressing the main contributions of the paper, such as the proposed AI framework, its architecture, methods used, and evaluation results. It lacks detail and does not summarize the key findings or implications of the research."
+      "reasoning": "The model answer only provides a very brief introduction and does not capture the main contributions or details of the proposed AI framework, its evaluation, or the specific challenges addressed in the reference answer."
     }
   },
   {
@@ -663,7 +663,7 @@
     "judge": {
       "score": 1,
       "correct": false,
-      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the challenges faced by designers and engineers, which is irrelevant to the question."
+      "reasoning": "The model answer does not provide the names of the authors as requested in the question. Instead, it discusses the challenges faced by designers, engineers, and building officials, which is irrelevant to the question."
     }
   },
   {
